@@ -37,3 +37,19 @@ services:
     depends_on:
       - backend
     # image: frontend:latest 
+  # auth:
+  #   build:
+  #     context: ./auth
+  #   container_name: auth
+  #   environment:
+  #     DB_HOST: db
+  #     DB_PORT: 5432
+  #     DB_NAME: authdb
+  #     DB_USER: postgres
+  #     DB_PASSWORD: postgres
+  #     JWT_SECRET: your_jwt_secret
+  #   depends_on:
+  #     - db
+  #   ports:
+  #     - "4000:4000"
+
