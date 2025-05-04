@@ -2,19 +2,40 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { createUser, getUserByEmail } = require("../models/usermodel");
 
+// exports.signup = async (req, res) => {
+//   const { email, password } = req.body;
+//   try {
+//     const user = await getUserByEmail(email);
+//     if (user) return res.status(400).json({ message: "User already exists" });
+
+//     const hashedPassword = await bcrypt.hash(password, 10);
+//     const newUser = await createUser(email, hashedPassword);
+//     res.status(201).json({ message: "User created" });
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// };
+
 exports.signup = async (req, res) => {
-  const { email, password } = req.body;
+  // const { name, email, password } = req.body;
+  const { name, email, password } = req.body;
+// if (password !== confirmPassword) {
+//   return res.status(400).json({ message: "Passwords do not match" });
+// }
   try {
     const user = await getUserByEmail(email);
     if (user) return res.status(400).json({ message: "User already exists" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await createUser(email, hashedPassword);
+    const newUser = await createUser(name, email, hashedPassword);
+    console.log("Signup body:", req.body);
     res.status(201).json({ message: "User created" });
   } catch (err) {
+    console.error("Error during signup:", err);
     res.status(500).json({ message: err.message });
   }
 };
+
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
